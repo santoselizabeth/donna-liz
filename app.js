@@ -35,8 +35,8 @@ async function liberarLoja(nome, id) {
     document.getElementById('user-info').innerText = `Bem-vinda, ${nome}!`;
 
     try {
-        // CORRIGIDO: URL da API na nuvem para buscar produtos
-        const resposta = await fetch('https://donna-liz-api.onrender.com/produtos');
+        // ATUALIZADO: URL oficial com o ID correto do Render
+        const resposta = await fetch('https://donna-liz-ffk5.onrender.com/produtos');
         produtos = await resposta.json(); 
         
         renderizarProdutos(produtos);
@@ -161,7 +161,8 @@ async function finalizarPedido() {
     };
 
     try {
-        const respuesta = await fetch('https://donna-liz-api.onrender.com/pedidos', {
+        // ATUALIZADO: URL oficial com o ID correto do Render
+        const respuesta = await fetch('https://donna-liz-ffk5.onrender.com/pedidos', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(dadosDoPedido)
@@ -189,7 +190,8 @@ document.getElementById('form-cadastro').addEventListener('submit', async functi
     const senha = document.getElementById('reg-senha').value;
 
     try {
-        const resposta = await fetch('https://donna-liz-api.onrender.com/usuarios/cadastro', {
+        // ATUALIZADO: URL oficial com o ID correto do Render
+        const resposta = await fetch('https://donna-liz-ffk5.onrender.com/usuarios/cadastro', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ nome, email, senha })
@@ -214,7 +216,8 @@ document.getElementById('form-login').addEventListener('submit', async function(
     const senha = document.getElementById('login-senha').value;
 
     try {
-        const resposta = await fetch('https://donna-liz-api.onrender.com/usuarios/login', {
+        // ATUALIZADO: URL oficial com o ID correto do Render
+        const resposta = await fetch('https://donna-liz-ffk5.onrender.com/usuarios/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, senha })
@@ -261,7 +264,8 @@ async function abrirHistoricoPedidos() {
     document.querySelector('#modal-pedidos h2').innerText = "Histórico de Pedidos";
 
     try {
-        const resposta = await fetch(`https://donna-liz-api.onrender.com/pedidos/${usuarioLogadoId}`);
+        // ATUALIZADO: URL oficial com o ID correto do Render
+        const resposta = await fetch(`https://donna-liz-ffk5.onrender.com/pedidos/${usuarioLogadoId}`);
         const pedidos = await resposta.json();
 
         if (pedidos.length === 0) {
@@ -294,7 +298,8 @@ async function verificarPedidoAtivo() {
     if (!usuarioLogadoId) return;
 
     try {
-        const resposta = await fetch(`https://donna-liz-api.onrender.com/pedidos/${usuarioLogadoId}`);
+        // ATUALIZADO: URL oficial com o ID correto do Render
+        const resposta = await fetch(`https://donna-liz-ffk5.onrender.com/pedidos/${usuarioLogadoId}`);
         const pedidos = await resposta.json();
 
         const tracker = document.getElementById('pedido-tracker-flutuante');
@@ -328,7 +333,8 @@ async function abrirModalAcompanhamento() {
     document.querySelector('#modal-pedidos h2').innerText = "Acompanhar Entrega";
 
     try {
-        const resposta = await fetch(`https://donna-liz-api.onrender.com/pedidos/${usuarioLogadoId}`);
+        // ATUALIZADO: URL oficial com o ID correto do Render
+        const resposta = await fetch(`https://donna-liz-ffk5.onrender.com/pedidos/${usuarioLogadoId}`);
         const pedidos = await resposta.json();
         const ultimoPedido = pedidos[0];
         const status = ultimoPedido.status;
@@ -360,10 +366,10 @@ async function abrirModalAcompanhamento() {
     }
 }
 
-// 4. MOTOR DA SIMULAÇÃO (PATCH)
 function simularProgressoIFood(pedidoId) {
     setTimeout(async () => {
-        await fetch(`https://donna-liz-api.onrender.com/pedidos/${pedidoId}/status`, {
+        // ATUALIZADO: URL oficial com o ID correto do Render
+        await fetch(`https://donna-liz-ffk5.onrender.com/pedidos/${pedidoId}/status`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ status: 'Preparando' })
@@ -376,7 +382,8 @@ function simularProgressoIFood(pedidoId) {
     }, 7000);
 
     setTimeout(async () => {
-        await fetch(`https://donna-liz-api.onrender.com/pedidos/${pedidoId}/status`, {
+        // ATUALIZADO: URL oficial com o ID correto do Render
+        await fetch(`https://donna-liz-ffk5.onrender.com/pedidos/${pedidoId}/status`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ status: 'A caminho' })
@@ -389,7 +396,8 @@ function simularProgressoIFood(pedidoId) {
     }, 15000);
 
     setTimeout(async () => {
-        await fetch(`https://donna-liz-api.onrender.com/pedidos/${pedidoId}/status`, {
+        // ATUALIZADO: URL oficial com o ID correto do Render
+        await fetch(`https://donna-liz-ffk5.onrender.com/pedidos/${pedidoId}/status`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ status: 'Entregue' })
@@ -402,7 +410,6 @@ function simularProgressoIFood(pedidoId) {
     }, 25000);
 }
 
-
 function fecharModalPerfil() {
     document.getElementById('modal-perfil').classList.add('hidden');
 }
@@ -412,8 +419,8 @@ async function abrirModalPerfil() {
     if (!usuarioLogadoId) return alert("Faça login novamente.");
 
     try {
-
-        const response = await fetch(`https://donna-liz-api.onrender.com/usuarios/${usuarioLogadoId}`);
+        // ATUALIZADO: URL oficial com o ID correto do Render
+        const response = await fetch(`https://donna-liz-ffk5.onrender.com/usuarios/${usuarioLogadoId}`);
         const usuario = await response.json();
 
         if (response.ok) {
@@ -440,8 +447,8 @@ document.getElementById('form-editar-perfil').addEventListener('submit', async f
     if (senha) dadosAtualizados.senha = senha; 
 
     try {
-    
-        const resposta = await fetch(`https://donna-liz-api.onrender.com/usuarios/${usuarioLogadoId}`, {
+        // ATUALIZADO: URL oficial com o ID correto do Render
+        const resposta = await fetch(`https://donna-liz-ffk5.onrender.com/usuarios/${usuarioLogadoId}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(dadosAtualizados)
