@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donna Liz | Gastronomia Italiana</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+ <div id="modal-pedidos" class="modal-overlay hidden">
+    <div class="modal-card pedidos-card">
+        <button class="btn-fechar" onclick="fecharModalPedidos()">✕</button>
+        <h2>Acompanhar Pedido</h2>
+        <div id="conteudo-pedidos">
+            </div>
+    </div>
+</div>
+    <section id="landing-page" class="view-hero">
+        <div class="overlay">
+            <div class="content-box">
+                <h1 class="brand-large">Donna<span>Liz</span></h1>
+                <p class="tagline">A verdadeira tradição italiana.</p>
+                <div class="hero-actions">
+                    <button class="btn-gold" onclick="abrirAcesso('cadastro')">Começar Experiência</button>
+                    <button class="btn-link" onclick="abrirAcesso('login')">Já tenho conta</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="modal-acesso" class="modal-overlay hidden">
+        <div class="modal-card">
+            <button class="btn-fechar" onclick="fecharModal()">✕</button>
+
+            <div id="secao-cadastro">
+                <h2>Crie sua conta</h2>
+                <p>Cadastre-se para acessar nossos produtos exclusivos.</p>
+                <form id="form-cadastro">
+                    <input type="text" id="reg-nome" placeholder="Nome Completo" required>
+                    <input type="email" id="reg-email" placeholder="E-mail" required>
+                    <input type="password" id="reg-senha" placeholder="Crie uma senha" required>
+                    <button type="submit" class="btn-confirmar">Cadastrar e Acessar</button>
+                </form>
+                <p class="switch-text">Já tem conta? <a href="#" onclick="alternarAcesso('login')">Entrar aqui</a></p>
+            </div>
+
+            <div id="secao-login" class="hidden">
+                <h2>Bem-vinda de volta!</h2>
+                <p>Identifique-se para continuar.</p>
+                <form id="form-login">
+                    <input type="email" id="login-email" placeholder="E-mail" required>
+                    <input type="password" id="login-senha" placeholder="Sua senha" required>
+                    <button type="submit" class="btn-confirmar">Entrar</button>
+                </form>
+                <p class="switch-text">Novo por aqui? <a href="#" onclick="alternarAcesso('cadastro')">Criar conta</a></p>
+            </div>
+        </div>
+    </div>
+
+    <main id="loja-interna" class="hidden">
+
+        <div id="pedido-tracker-flutuante" class="hidden" onclick="abrirModalAcompanhamento()">
+    <div class="tracker-conteudo">
+        <span class="icone-relogio">🕒</span>
+        <div class="tracker-texto">
+            <h4>Acompanhar Pedido</h4>
+            <small id="tracker-status-texto">Status: Pendente</small>
+        </div>
+    </div>
+</div>
+
+        <header class="main-header">
+            <h1 class="brand-small">Donna<span>Liz</span></h1>
+            <div class="user-menu">
+                <span id="user-info"></span>
+                <button class="btn-perfil" onclick="toggleMenuUsuario()">👤</button>
+                <div id="dropdown-user" class="dropdown hidden">
+                    <a href="#" onclick="abrirHistoricoPedidos()">Meus Pedidos</a>
+                    <a href="#" onclick="abrirModalPerfil()">Editar Perfil</a>
+                    <a href="#" onclick="logout()">Sair</a>
+                </div>
+            </div>
+        </header>
+
+        <nav class="categorias-nav">
+            <button class="cat-item active" onclick="filtrarProdutos('todos')">Todos</button>
+            <button class="cat-item" onclick="filtrarProdutos('pizza')">Pizzas</button>
+            <button class="cat-item" onclick="filtrarProdutos('bebida')">Bebidas</button>
+            <button class="cat-item" onclick="filtrarProdutos('sobremesa')">Sobremesas</button>
+        </nav>
+
+        <div class="container">
+            <section id="lista-produtos" class="grid-produtos">
+                <!-- Injetado dinamicamente pelo JavaScript -->
+            </section>
+        </div>
+
+        <div id="btn-carrinho-flutuante" class="carrinho-float" onclick="abrirCarrinho()">
+            <span class="count">0</span>
+            <span class="label">Ver Sacola</span>
+            <span class="total">R$ 0,00</span>
+        </div>
+    </main>
+
+    <aside id="sacola-lateral" class="sacola-container hidden">
+        <div class="sacola-content">
+            <div class="sacola-header">
+                <h2>Sua Sacola</h2>
+                <button class="btn-fechar-sacola" onclick="toggleCarrinho()">✕</button>
+            </div>
+
+            <div id="itens-carrinho" class="sacola-itens">
+                <p class="vazio-msg">Sua sacola está vazia. <br> Que tal adicionar uma pizza?</p>
+            </div>
+
+            <div class="sacola-footer">
+                <div class="total-linha">
+                    <span>Total:</span>
+                    <span id="valor-total">R$ 0,00</span>
+                </div>
+                <button class="btn-finalizar" onclick="finalizarPedido()" disabled>Finalizar Pedido</button>
+            </div>
+        </div>
+    </aside>
+
+    <div id="modal-perfil" class="modal-overlay hidden">
+    <div class="modal-card pedidos-card">
+        <button class="btn-fechar" onclick="fecharModalPerfil()">✕</button>
+        <h2>Editar Perfil</h2>
+        <form id="form-editar-perfil" style="display: flex; flex-direction: column; gap: 15px; margin-top: 20px;">
+            <div style="display: flex; flex-direction: column; gap: 5px;">
+                <label style="font-size: 0.85rem; color: #888;">Nome:</label>
+                <input type="text" id="edit-nome" required style="background: #1a1a1a; border: 1px solid #333; color: #fff; padding: 10px; border-radius: 6px;">
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 5px;">
+                <label style="font-size: 0.85rem; color: #888;">E-mail:</label>
+                <input type="email" id="edit-email" required style="background: #1a1a1a; border: 1px solid #333; color: #fff; padding: 10px; border-radius: 6px;">
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 5px;">
+                <label style="font-size: 0.85rem; color: #888;">Nova Senha (deixe em branco para não alterar):</label>
+                <input type="password" id="edit-senha" style="background: #1a1a1a; border: 1px solid #333; color: #fff; padding: 10px; border-radius: 6px;">
+            </div>
+            <button type="submit" style="background: #D4AF37; color: #000; border: none; padding: 12px; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 10px;">Salvar Alterações</button>
+        </form>
+    </div>
+</div>
+
+    <script src="app.js"></script>
+</body>
+</html>
